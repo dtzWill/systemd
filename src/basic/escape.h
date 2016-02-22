@@ -24,7 +24,6 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <sys/types.h>
-#include <uchar.h>
 
 #include "string-util.h"
 #include "missing.h"
