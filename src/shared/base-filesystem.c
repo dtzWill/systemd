@@ -54,7 +54,7 @@ int base_filesystem_create(const char *root, uid_t uid, gid_t gid) {
                 return log_error_errno(errno, "Failed to open root file system: %m");
 
         for (i = 0; i < ELEMENTSOF(table); i ++) {
-                if (faccessat(fd, table[i].dir, F_OK, AT_SYMLINK_NOFOLLOW) >= 0)
+                if (faccessat(fd, table[i].dir, F_OK, 0) >= 0)
                         continue;
 
                 if (table[i].target) {
@@ -62,7 +62,7 @@ int base_filesystem_create(const char *root, uid_t uid, gid_t gid) {
 
                         /* check if one of the targets exists */
                         NULSTR_FOREACH(s, table[i].target) {
-                                if (faccessat(fd, s, F_OK, AT_SYMLINK_NOFOLLOW) < 0)
+                                if (faccessat(fd, s, F_OK, 0) < 0)
                                         continue;
 
                                 /* check if a specific file exists at the target path */
@@ -73,7 +73,7 @@ int base_filesystem_create(const char *root, uid_t uid, gid_t gid) {
                                         if (!p)
                                                 return log_oom();
 
-                                        if (faccessat(fd, p, F_OK, AT_SYMLINK_NOFOLLOW) < 0)
+                                        if (faccessat(fd, p, F_OK, 0) < 0)
                                                 continue;
                                 }
 
