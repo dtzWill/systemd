@@ -48,7 +48,27 @@ int fchmod_umask(int fd, mode_t mode);
 
 int fd_warn_permissions(const char *path, int fd);
 
-#define laccess(path, mode) faccessat(AT_FDCWD, (path), (mode), AT_SYMLINK_NOFOLLOW)
+/*
+   Avoid using AT_SYMLINK_NOFOLLOW flag. It doesn't seem like the right thing to
+   do and it's not portable (not supported by musl). See:
+
+     http://lists.landley.net/pipermail/toybox-landley.net/2014-September/003610.html
+     http://www.openwall.com/lists/musl/2015/02/05/2
+
+   Note that laccess() is never passing AT_EACCESS so a lot of the discussion in
+   the links above doesn't apply. Note also that (currently) all systemd callers
+   of laccess() pass mode as F_OK, so only check for existence of a file, not
+   access permissions. Therefore, in this case, the only distiction between
+   faccessat() with (flag == 0) and (flag == AT_SYMLINK_NOFOLLOW) is the
+   behaviour for broken symlinks; laccess() on a broken symlink will succeed
+   with (flag == AT_SYMLINK_NOFOLLOW) and fail (flag == 0).
+
+   The laccess() macros was added to systemd some time ago and it's not clear if
+   or why it needs to return success for broken symlinks. Maybe just historical
+   and not actually necessary or desired behaviour?
+*/
+
+#define laccess(path, mode) faccessat(AT_FDCWD, (path), (mode), 0)
 
 int touch_file(const char *path, bool parents, usec_t stamp, uid_t uid, gid_t gid, mode_t mode);
 int touch(const char *path);
