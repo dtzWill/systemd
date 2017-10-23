@@ -6,6 +6,7 @@
 #include "hexdecoct.h"
 #include "macro.h"
 #include "string-util.h"
+#include "missing.h"
 
 static void test_hexchar(void) {
         assert_se(hexchar(0xa) == 'a');
