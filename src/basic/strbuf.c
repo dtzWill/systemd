@@ -24,6 +24,7 @@
 
 #include "alloc-util.h"
 #include "strbuf.h"
+#include "missing.h"
 
 /*
  * Strbuf stores given strings in a single continuous allocated memory
