@@ -28,6 +28,7 @@
 #include <sys/time.h>
 #include <sys/utsname.h>
 #include <unistd.h>
+#include <utmp.h>
 #include <utmpx.h>
 
 #include "alloc-util.h"
@@ -41,6 +42,13 @@
 #include "user-util.h"
 #include "util.h"
 #include "utmp-wtmp.h"
+
+#if defined _PATH_UTMP && !defined _PATH_UTMPX
+# define _PATH_UTMPX _PATH_UTMP
+#endif
+#if defined _PATH_WTMP && !defined _PATH_WTMPX
+# define _PATH_WTMPX _PATH_WTMP
+#endif
 
 int utmp_get_runlevel(int *runlevel, int *previous) {
         struct utmpx *found, lookup = { .ut_type = RUN_LVL };
