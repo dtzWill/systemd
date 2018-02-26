@@ -41,7 +41,9 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/syscall.h>
+#if HAVE_UCHAR_H
 #include <uchar.h>
+#endif
 #include <unistd.h>
 
 #if HAVE_AUDIT

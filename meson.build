@@ -646,6 +646,7 @@ foreach header : ['crypt.h',
                   'sys/auxv.h',
                   'valgrind/memcheck.h',
                   'valgrind/valgrind.h',
+                  'uchar.h',
                  ]
 
         conf.set10('HAVE_' + header.underscorify().to_upper(),
