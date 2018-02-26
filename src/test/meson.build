@@ -651,7 +651,7 @@ tests += [
         [['src/test/test-nss.c'],
          [],
          [libdl],
-         '', 'manual'],
+         'ENABLE_NSS_SYSTEMD', 'manual'],
 ]
 
 ############################################################
