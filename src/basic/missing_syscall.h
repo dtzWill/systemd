@@ -33,6 +33,12 @@ static inline int missing_pivot_root(const char *new_root, const char *put_old) 
 #  define pivot_root missing_pivot_root
 #endif
 
+#if !HAVE_CANONICALIZE_FILE_NAME
+static inline char *canonicalize_file_name(const char *path) {
+        return realpath(path, NULL);
+}
+#endif
+
 /* ======================================================================= */
 
 #if !HAVE_MEMFD_CREATE
