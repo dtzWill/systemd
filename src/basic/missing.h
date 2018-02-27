@@ -75,6 +75,10 @@ struct sockaddr_vm {
 };
 #endif /* !HAVE_LINUX_VM_SOCKETS_H */
 
+#ifndef ULONG_LONG_MAX
+#define ULONG_LONG_MAX ULLONG_MAX
+#endif
+
 #ifndef RLIMIT_RTTIME
 #define RLIMIT_RTTIME 15
 #endif
