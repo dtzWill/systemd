@@ -542,6 +542,7 @@ foreach ident : [
                                  #include <sys/stat.h>
                                  #include <unistd.h>'''],
         ['explicit_bzero' ,   '''#include <string.h>'''],
+        ['strndupa' ,         '''#include <string.h>'''],
         ['reallocarray',      '''#include <malloc.h>'''],
 ]
 

@@ -11,6 +11,7 @@
 #include "procfs-util.h"
 #include "stdio-util.h"
 #include "string-util.h"
+#include "missing.h"
 
 int procfs_tasks_get_limit(uint64_t *ret) {
         _cleanup_free_ char *value = NULL;
