@@ -19,6 +19,7 @@
 ***/
 
 #include <netinet/in.h>
+#include <netinet/if_ether.h>
 #include <linux/if_bridge.h>
 #include <stdbool.h>
 
