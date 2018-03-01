@@ -210,6 +210,26 @@ struct sockaddr_vm {
 #define BTRFS_QGROUP_LEVEL_SHIFT 48
 #endif
 
+#ifndef FTW_ACTIONRETVAL
+#define FTW_ACTIONRETVAL 16
+#endif
+
+#ifndef FTW_CONTINUE
+#define FTW_CONTINUE 0
+#endif
+
+#ifndef FTW_STOP
+#define FTW_STOP 1
+#endif
+
+#ifndef FTW_SKIP_SUBTREE
+#define FTW_SKIP_SUBTREE 2
+#endif
+
+#ifndef FTW_SKIP_SIBLINGS
+#define FTW_SKIP_SIBLINGS 3
+#endif
+
 #if ! HAVE_LINUX_BTRFS_H
 #define BTRFS_IOC_QGROUP_ASSIGN _IOW(BTRFS_IOCTL_MAGIC, 41, \
                                struct btrfs_ioctl_qgroup_assign_args)
