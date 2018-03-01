@@ -313,6 +313,10 @@ endforeach
 
 basic_sources += [missing_h] + generated_gperf_headers
 
+if conf.get('HAVE_PRINTF_H') != 1
+        basic_sources += [files('parse-printf-format.c')]
+endif
+
 libbasic = static_library(
         'basic',
         basic_sources,

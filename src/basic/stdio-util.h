@@ -20,12 +20,12 @@
   along with systemd; If not, see <http://www.gnu.org/licenses/>.
 ***/
 
-#include <printf.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <sys/types.h>
 
 #include "macro.h"
+#include "parse-printf-format.h"
 
 #define snprintf_ok(buf, len, fmt, ...) \
         ((size_t) snprintf(buf, len, fmt, __VA_ARGS__) < (len))
