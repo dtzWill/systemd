@@ -370,14 +370,15 @@ static void bus_error_strerror(sd_bus_error *e, int error) {
 
         for (;;) {
                 char *x;
+                int r;
 
                 m = new(char, k);
                 if (!m)
                         return;
 
                 errno = 0;
-                x = strerror_r(error, m, k);
-                if (errno == ERANGE || strlen(x) >= k - 1) {
+                r = strerror_r(error, m, k);
+                if (errno == ERANGE) {
                         free(m);
                         k *= 2;
                         continue;
@@ -387,6 +388,8 @@ static void bus_error_strerror(sd_bus_error *e, int error) {
                         free(m);
                         return;
                 }
+                /// errno = 0, r must be 0 too
+                x = m;
 
                 if (x == m) {
                         if (e->_need_free > 0) {

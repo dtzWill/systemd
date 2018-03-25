@@ -353,10 +353,12 @@ static int fill_iovec_perror_and_send(const char *message, int skip, struct iove
         for (;;) {
                 char buffer[n];
                 char* j;
+                int r;
 
                 errno = 0;
-                j = strerror_r(_saved_errno_, buffer + 8 + k, n - 8 - k);
-                if (errno == 0) {
+                j = buffer + 8 + k;
+                r = strerror_r(_saved_errno_, j, n - 8 - k);
+                if (errno == 0 && r == 0) {
                         char error[STRLEN("ERRNO=") + DECIMAL_STR_MAX(int) + 1];
 
                         if (j != buffer + 8 + k)
