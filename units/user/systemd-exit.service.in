@@ -16,4 +16,4 @@ After=shutdown.target
 
 [Service]
 Type=oneshot
-ExecStart=@KILL@ -s 58 $MANAGERPID
+ExecStart=@KILL@ -RTMIN+24 $MANAGERPID
