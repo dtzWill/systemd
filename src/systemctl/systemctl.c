@@ -8175,6 +8175,16 @@ static int parse_argv(int argc, char *argv[]) {
                 } else if (strstr(program_invocation_short_name, "runlevel")) {
                         arg_action = ACTION_RUNLEVEL;
                         return runlevel_parse_argv(argc, argv);
+                } else if (strstr(program_invocation_short_name, "kill-user-manager")) {
+                        if (argc != 2) {
+                          log_error("%s: require argument 'PID' missing, or too many arguments.", program_invocation_short_name);
+                          return -EINVAL;
+                        }
+                        uint32_t pid;
+                        int q = safe_atou32(argv[1], &pid);
+                        if (q < 0)
+                          return -EINVAL;
+                        return kill(pid, SIGRTMIN+24);
                 }
         }
 

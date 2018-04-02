@@ -273,6 +273,7 @@ substs.set('systemsleepdir',                                  systemsleepdir)
 substs.set('VARLOGDIR',                                       varlogdir)
 substs.set('CERTIFICATEROOT',                                 get_option('certificate-root'))
 substs.set('SYSTEMCTL',                                       join_paths(rootbindir, 'systemctl'))
+substs.set('KILLUSERMANAGER',                                 join_paths(rootbindir, 'kill-user-manager'))
 substs.set('RANDOM_SEED',                                     join_paths(randomseeddir, 'random-seed'))
 substs.set('SYSTEM_SYSVINIT_PATH',                            sysvinit_path)
 substs.set('SYSTEM_SYSVRCND_PATH',                            sysvrcnd_path)
@@ -1725,7 +1726,7 @@ exe = executable('systemctl', 'src/systemctl/systemctl.c',
                  install_dir : rootbindir)
 public_programs += [exe]
 
-foreach alias : ['halt', 'poweroff', 'reboot', 'runlevel', 'shutdown', 'telinit']
+foreach alias : ['halt', 'poweroff', 'reboot', 'runlevel', 'shutdown', 'telinit', 'kill-user-manager']
         meson.add_install_script(meson_make_symlink,
                                  join_paths(rootbindir, 'systemctl'),
                                  join_paths(rootsbindir, alias))
