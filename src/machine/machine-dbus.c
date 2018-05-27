@@ -11,6 +11,10 @@
 #include <libgen.h>
 #undef basename
 
+#if !defined(__GLIBC__)
+#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
+#endif
+
 #include "alloc-util.h"
 #include "bus-common-errors.h"
 #include "bus-internal.h"
