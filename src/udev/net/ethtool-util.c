@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: LGPL-2.1+ */
 
+#include <netinet/if_ether.h>
 #include <net/if.h>
 #include <sys/ioctl.h>
 #include <linux/ethtool.h>

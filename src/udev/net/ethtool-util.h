@@ -3,6 +3,7 @@
 
 
 #include <macro.h>
+#include <netinet/if_ether.h>
 #include <linux/ethtool.h>
 
 #include "missing.h"
