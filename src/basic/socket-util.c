@@ -32,6 +32,16 @@
 #include "utf8.h"
 #include "util.h"
 
+/* Don't fail if the standard library
+ * doesn't support IDN */
+#ifndef NI_IDN
+#define NI_IDN 0
+#endif
+
+#ifndef NI_IDN_USE_STD3_ASCII_RULES
+#define NI_IDN_USE_STD3_ASCII_RULES 0
+#endif
+
 #if ENABLE_IDN
 #  define IDN_FLAGS NI_IDN
 #else
