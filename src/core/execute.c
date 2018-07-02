@@ -3976,10 +3976,10 @@ void exec_context_dump(const ExecContext *c, FILE* f, const char *prefix) {
 
         for (i = 0; i < RLIM_NLIMITS; i++)
                 if (c->rlimit[i]) {
-                        fprintf(f, "Limit%s%s: " RLIM_FMT "\n",
-                                prefix, rlimit_to_string(i), c->rlimit[i]->rlim_max);
-                        fprintf(f, "Limit%s%sSoft: " RLIM_FMT "\n",
-                                prefix, rlimit_to_string(i), c->rlimit[i]->rlim_cur);
+                        fprintf(f, "Limit%s%s: %ju\n",
+                                prefix, rlimit_to_string(i), (uintmax_t)c->rlimit[i]->rlim_max);
+                        fprintf(f, "Limit%s%sSoft: %ju\n",
+                                prefix, rlimit_to_string(i), (uintmax_t)c->rlimit[i]->rlim_cur);
                 }
 
         if (c->ioprio_set) {
