@@ -7,6 +7,7 @@
 #include "alloc-util.h"
 #include "strbuf.h"
 #include "util.h"
+#include "missing.h"
 
 /*
  * Strbuf stores given strings in a single continuous allocated memory
