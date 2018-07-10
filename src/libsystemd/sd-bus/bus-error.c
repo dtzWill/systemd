@@ -380,7 +380,12 @@ static void bus_error_strerror(sd_bus_error *e, int error) {
                         return;
 
                 errno = 0;
+#ifndef __GLIBC__
+                strerror_r(error, m, k);
+                x = m;
+#else
                 x = strerror_r(error, m, k);
+#endif
                 if (errno == ERANGE || strlen(x) >= k - 1) {
                         free(m);
                         k *= 2;
