@@ -620,6 +620,7 @@ endif
 foreach header : ['crypt.h',
                   'linux/memfd.h',
                   'linux/vm_sockets.h',
+                  'printf.h',
                   'sys/auxv.h',
                   'valgrind/memcheck.h',
                   'valgrind/valgrind.h',

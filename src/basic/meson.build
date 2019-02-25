@@ -312,6 +312,11 @@ foreach item : [['af',     af_list_txt,     'af',         ''],
 endforeach
 
 basic_sources += generated_gperf_headers
+
+if conf.get('HAVE_PRINTF_H') != 1
+        basic_sources += [files('parse-printf-format.c')]
+endif
+
 basic_gcrypt_sources = files(
         'gcrypt-util.c',
         'gcrypt-util.h')
