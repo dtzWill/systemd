@@ -20,6 +20,9 @@
 #if HAVE_VALGRIND_VALGRIND_H
 #include <valgrind/valgrind.h>
 #endif
+#ifndef __GLIBC__
+#include <pthread.h>
+#endif
 
 #include "alloc-util.h"
 #include "architecture.h"
@@ -1096,11 +1099,15 @@ void reset_cached_pid(void) {
         cached_pid = CACHED_PID_UNSET;
 }
 
+#ifdef __GLIBC__
 /* We use glibc __register_atfork() + __dso_handle directly here, as they are not included in the glibc
  * headers. __register_atfork() is mostly equivalent to pthread_atfork(), but doesn't require us to link against
  * libpthread, as it is part of glibc anyway. */
 extern int __register_atfork(void (*prepare) (void), void (*parent) (void), void (*child) (void), void *dso_handle);
 extern void* __dso_handle _weak_;
+#else
+#define __register_atfork(prepare,parent,child,dso) pthread_atfork(prepare,parent,child)
+#endif
 
 pid_t getpid_cached(void) {
         static bool installed = false;
