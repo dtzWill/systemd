@@ -1108,31 +1108,33 @@ static int cell_data_compare(TableData *a, size_t index_a, TableData *b, size_t 
         return CMP(index_a, index_b);
 }
 
-static int table_data_compare(const size_t *a, const size_t *b, Table *t) {
+static Table *user_table;
+static int table_data_compare(const void *x, const void *y) {
+        const size_t *a = x, *b=y;
         size_t i;
         int r;
 
-        assert(t);
-        assert(t->sort_map);
+        assert(user_table);
+        assert(user_table->sort_map);
 
         /* Make sure the header stays at the beginning */
-        if (*a < t->n_columns && *b < t->n_columns)
+        if (*a < user_table->n_columns && *b < user_table->n_columns)
                 return 0;
-        if (*a < t->n_columns)
+        if (*a < user_table->n_columns)
                 return -1;
-        if (*b < t->n_columns)
+        if (*b < user_table->n_columns)
                 return 1;
 
         /* Order other lines by the sorting map */
-        for (i = 0; i < t->n_sort_map; i++) {
+        for (i = 0; i < user_table->n_sort_map; i++) {
                 TableData *d, *dd;
 
-                d = t->data[*a + t->sort_map[i]];
-                dd = t->data[*b + t->sort_map[i]];
+                d = user_table->data[*a + user_table->sort_map[i]];
+                dd = user_table->data[*b + user_table->sort_map[i]];
 
                 r = cell_data_compare(d, *a, dd, *b);
                 if (r != 0)
-                        return t->reverse_map && t->reverse_map[t->sort_map[i]] ? -r : r;
+                        return user_table->reverse_map && user_table->reverse_map[user_table->sort_map[i]] ? -r : r;
         }
 
         /* Order identical lines by the order there were originally added in */
@@ -1532,7 +1534,12 @@ int table_print(Table *t, FILE *f) {
                 for (i = 0; i < n_rows; i++)
                         sorted[i] = i * t->n_columns;
 
-                typesafe_qsort_r(sorted, n_rows, table_data_compare, t);
+                if (n_rows <= 1)
+                        return 0;
+                assert(sorted);
+                user_table = t;
+                qsort(sorted, n_rows, sizeof(size_t), table_data_compare);
+                user_table = NULL;
         }
 
         if (t->display_map)
@@ -1994,7 +2001,12 @@ int table_to_json(Table *t, JsonVariant **ret) {
                 for (i = 0; i < n_rows; i++)
                         sorted[i] = i * t->n_columns;
 
-                typesafe_qsort_r(sorted, n_rows, table_data_compare, t);
+                if (n_rows <= 1)
+                        return 0;
+                assert(sorted);
+                user_table = t;
+                qsort(sorted, n_rows, sizeof(size_t), table_data_compare);
+                user_table = NULL;
         }
 
         if (t->display_map)

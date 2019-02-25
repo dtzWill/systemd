@@ -128,9 +128,13 @@ static void trie_free(struct trie *trie) {
 
 DEFINE_TRIVIAL_CLEANUP_FUNC(struct trie*, trie_free);
 
-static int trie_values_cmp(const struct trie_value_entry *a, const struct trie_value_entry *b, struct trie *trie) {
-        return strcmp(trie->strings->buf + a->key_off,
-                      trie->strings->buf + b->key_off);
+static struct trie *trie_node_add_value_trie;
+static int trie_values_cmp(const void *v1, const void *v2) {
+        const struct trie_value_entry *a = v1;
+        const struct trie_value_entry *b = v2;
+
+        return strcmp(trie_node_add_value_trie->strings->buf + a->key_off,
+                      trie_node_add_value_trie->strings->buf + b->key_off);
 }
 
 static int trie_node_add_value(struct trie *trie, struct trie_node *node,
@@ -158,7 +162,10 @@ static int trie_node_add_value(struct trie *trie, struct trie_node *node,
                         .value_off = v,
                 };
 
-                val = typesafe_bsearch_r(&search, node->values, node->values_count, trie_values_cmp, trie);
+                trie_node_add_value_trie = trie;
+                val = bsearch(&search, node->values, node->values_count, sizeof(struct trie_value_entry), trie_values_cmp);
+                trie_node_add_value_trie = NULL;
+
                 if (val) {
                         /* At this point we have 2 identical properties on the same match-string.
                          * Since we process files in order, we just replace the previous value. */
@@ -184,7 +191,9 @@ static int trie_node_add_value(struct trie *trie, struct trie_node *node,
                 .line_number = line_number,
         };
         node->values_count++;
-        typesafe_qsort_r(node->values, node->values_count, trie_values_cmp, trie);
+        trie_node_add_value_trie = trie;
+        qsort(node->values, node->values_count, sizeof(struct trie_value_entry), trie_values_cmp);
+        trie_node_add_value_trie = NULL;
         return 0;
 }
 

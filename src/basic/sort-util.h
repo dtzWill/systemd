@@ -54,17 +54,3 @@ static inline void qsort_safe(void *base, size_t nmemb, size_t size, __compar_fn
                 int (*_func_)(const typeof(p[0])*, const typeof(p[0])*) = func; \
                 qsort_safe((p), (n), sizeof((p)[0]), (__compar_fn_t) _func_); \
         })
-
-static inline void qsort_r_safe(void *base, size_t nmemb, size_t size, __compar_d_fn_t compar, void *userdata) {
-        if (nmemb <= 1)
-                return;
-
-        assert(base);
-        qsort_r(base, nmemb, size, compar, userdata);
-}
-
-#define typesafe_qsort_r(p, n, func, userdata)                          \
-        ({                                                              \
-                int (*_func_)(const typeof(p[0])*, const typeof(p[0])*, typeof(userdata)) = func; \
-                qsort_r_safe((p), (n), sizeof((p)[0]), (__compar_d_fn_t) _func_, userdata); \
-        })
