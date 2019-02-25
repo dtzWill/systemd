@@ -13,6 +13,7 @@
 
 #ifndef __GLIBC__
 typedef int (*comparison_fn_t)(const void *, const void *);
+typedef int (*__compar_d_fn_t) (const void *, const void *, void *);
 #endif
 
 #ifndef __COMPAR_FN_T
