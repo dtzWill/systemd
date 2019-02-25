@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "macro.h"
+#include "missing.h"
 
 void *xbsearch_r(const void *key, const void *base, size_t nmemb, size_t size,
                  __compar_d_fn_t compar, void *arg);

@@ -10,3 +10,12 @@
 #if !HAVE_CHAR16_T
 #define char16_t uint16_t
 #endif
+
+#ifndef __GLIBC__
+typedef int (*comparison_fn_t)(const void *, const void *);
+#endif
+
+#ifndef __COMPAR_FN_T
+#define __COMPAR_FN_T
+typedef int (*__compar_fn_t)(const void *, const void *);
+#endif
