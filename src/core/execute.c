@@ -4397,9 +4397,9 @@ void exec_context_dump(const ExecContext *c, FILE* f, const char *prefix) {
         for (i = 0; i < RLIM_NLIMITS; i++)
                 if (c->rlimit[i]) {
                         fprintf(f, "%sLimit%s: " RLIM_FMT "\n",
-                                prefix, rlimit_to_string(i), c->rlimit[i]->rlim_max);
+                                prefix, rlimit_to_string(i), (uintmax_t)c->rlimit[i]->rlim_max);
                         fprintf(f, "%sLimit%sSoft: " RLIM_FMT "\n",
-                                prefix, rlimit_to_string(i), c->rlimit[i]->rlim_cur);
+                                prefix, rlimit_to_string(i), (uintmax_t)c->rlimit[i]->rlim_cur);
                 }
 
         if (c->ioprio_set) {
