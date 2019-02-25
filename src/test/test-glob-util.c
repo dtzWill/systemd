@@ -13,6 +13,12 @@
 #include "rm-rf.h"
 #include "tmpfile-util.h"
 
+/* Don't fail if the standard library
+ * doesn't provide brace expansion */
+#ifndef GLOB_BRACE
+#define GLOB_BRACE 0
+#endif
+
 static void test_glob_exists(void) {
         char name[] = "/tmp/test-glob_exists.XXXXXX";
         int fd = -1;
@@ -40,11 +46,13 @@ static void test_glob_no_dot(void) {
         const char *fn;
 
         _cleanup_globfree_ glob_t g = {
+#ifdef GLOB_ALTDIRFUNC
                 .gl_closedir = closedir_wrapper,
                 .gl_readdir = (struct dirent *(*)(void *)) readdir_no_dot,
                 .gl_opendir = (void *(*)(const char *)) opendir,
                 .gl_lstat = lstat,
                 .gl_stat = stat,
+#endif
         };
 
         int r;
@@ -52,11 +60,19 @@ static void test_glob_no_dot(void) {
         assert_se(mkdtemp(template));
 
         fn = strjoina(template, "/*");
+#ifdef GLOB_ALTDIRFUNC
         r = glob(fn, GLOB_NOSORT|GLOB_BRACE|GLOB_ALTDIRFUNC, NULL, &g);
+#else
+        r = glob(fn, GLOB_NOSORT|GLOB_BRACE, NULL, &g);
+#endif
         assert_se(r == GLOB_NOMATCH);
 
         fn = strjoina(template, "/.*");
+#ifdef GLOB_ALTDIRFUNC
         r = glob(fn, GLOB_NOSORT|GLOB_BRACE|GLOB_ALTDIRFUNC, NULL, &g);
+#else
+        r = glob(fn, GLOB_NOSORT|GLOB_BRACE, NULL, &g);
+#endif
         assert_se(r == GLOB_NOMATCH);
 
         (void) rm_rf(template, REMOVE_ROOT|REMOVE_PHYSICAL);

@@ -14,6 +14,12 @@
 #include "path-util.h"
 #include "strv.h"
 
+/* Don't fail if the standard library
+ * doesn't provide brace expansion */
+#ifndef GLOB_BRACE
+#define GLOB_BRACE 0
+#endif
+
 static void closedir_wrapper(void* v) {
         (void) closedir(v);
 }
@@ -21,6 +27,7 @@ static void closedir_wrapper(void* v) {
 int safe_glob(const char *path, int flags, glob_t *pglob) {
         int k;
 
+#ifdef GLOB_ALTDIRFUNC
         /* We want to set GLOB_ALTDIRFUNC ourselves, don't allow it to be set. */
         assert(!(flags & GLOB_ALTDIRFUNC));
 
@@ -34,9 +41,14 @@ int safe_glob(const char *path, int flags, glob_t *pglob) {
                 pglob->gl_lstat = lstat;
         if (!pglob->gl_stat)
                 pglob->gl_stat = stat;
+#endif
 
         errno = 0;
+#ifdef GLOB_ALTDIRFUNC
         k = glob(path, flags | GLOB_ALTDIRFUNC, NULL, pglob);
+#else
+        k = glob(path, flags, NULL, pglob);
+#endif
         if (k == GLOB_NOMATCH)
                 return -ENOENT;
         if (k == GLOB_NOSPACE)
