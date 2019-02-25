@@ -1,7 +1,9 @@
 /* SPDX-License-Identifier: LGPL-2.1+ */
 #pragma once
 
+#ifdef __GLIBC__
 #include <linux/prctl.h>
+#endif
 
 /* 58319057b7847667f0c9585b9de0e8932b0fdb08 (4.3) */
 #ifndef PR_CAP_AMBIENT
