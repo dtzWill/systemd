@@ -24,6 +24,7 @@
 #include "string-util.h"
 #include "strv.h"
 #include "utf8.h"
+#include "missing.h"
 
 int dns_label_unescape(const char **name, char *dest, size_t sz, DNSLabelFlags flags) {
         const char *n;

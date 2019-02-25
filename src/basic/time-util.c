@@ -28,6 +28,7 @@
 #include "string-util.h"
 #include "strv.h"
 #include "time-util.h"
+#include "missing.h"
 
 static clockid_t map_clock_id(clockid_t c) {
 

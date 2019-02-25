@@ -28,6 +28,7 @@
 #include "udev-event.h"
 #include "udev-rules.h"
 #include "user-util.h"
+#include "missing.h"
 
 #define RULES_DIRS (const char* const*) CONF_PATHS_STRV("udev/rules.d")
 

@@ -11,6 +11,7 @@
 #include "kmod-setup.h"
 #include "macro.h"
 #include "string-util.h"
+#include "missing.h"
 
 #if HAVE_KMOD
 #include <libkmod.h>

@@ -16,6 +16,7 @@
 #include "string-util.h"
 #include "strv.h"
 #include "utf8.h"
+#include "missing.h"
 
 #define VALID_CHARS_ENV_NAME                    \
         DIGITS LETTERS                          \

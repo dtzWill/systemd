@@ -70,6 +70,7 @@
 #include "unit-name.h"
 #include "user-util.h"
 #include "varlink.h"
+#include "missing.h"
 
 #define DEFAULT_FSS_INTERVAL_USEC (15*USEC_PER_MINUTE)
 

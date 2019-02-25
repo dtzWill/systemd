@@ -13,6 +13,7 @@
 #include "set.h"
 #include "string-util.h"
 #include "strv.h"
+#include "missing.h"
 
 static int node_vtable_get_userdata(
                 sd_bus *bus,

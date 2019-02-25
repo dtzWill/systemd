@@ -17,6 +17,7 @@
 #include "string-util.h"
 #include "strv.h"
 #include "util.h"
+#include "missing.h"
 
 static int find_pci_or_platform_parent(sd_device *device, sd_device **ret) {
         const char *subsystem, *sysname, *value;

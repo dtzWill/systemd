@@ -9,6 +9,7 @@
 #include "sort-util.h"
 #include "uid-range.h"
 #include "user-util.h"
+#include "missing.h"
 
 static bool uid_range_intersect(UidRange *range, uid_t start, uid_t nr) {
         assert(range);

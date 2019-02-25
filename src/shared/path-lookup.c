@@ -20,6 +20,7 @@
 #include "tmpfile-util.h"
 #include "user-util.h"
 #include "util.h"
+#include "missing.h"
 
 int xdg_user_runtime_dir(char **ret, const char *suffix) {
         const char *e;

@@ -509,6 +509,7 @@ foreach ident : [
                                  #include <unistd.h>'''],
         ['get_mempolicy',     '''#include <stdlib.h>
                                  #include <unistd.h>'''],
+        ['strndupa' ,         '''#include <string.h>'''],
 ]
 
         have = cc.has_function(ident[0], prefix : ident[1], args : '-D_GNU_SOURCE')

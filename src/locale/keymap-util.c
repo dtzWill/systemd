@@ -22,6 +22,7 @@
 #include "string-util.h"
 #include "strv.h"
 #include "tmpfile-util.h"
+#include "missing.h"
 
 static bool startswith_comma(const char *s, const char *prefix) {
         s = startswith(s, prefix);

@@ -20,6 +20,7 @@
 #include "process-util.h"
 #include "stat-util.h"
 #include "string-util.h"
+#include "missing.h"
 
 int parse_boolean(const char *v) {
         if (!v)

@@ -28,6 +28,7 @@
 #include "hostname-util.h"
 #include "login-util.h"
 #include "macro.h"
+#include "missing.h"
 #include "parse-util.h"
 #include "path-util.h"
 #include "process-util.h"

@@ -14,6 +14,7 @@
 #include "missing_resource.h"
 #include "time-util.h"
 #include "util.h"
+#include "missing.h"
 
 #define MAX_SIZE (2*1024*1024)
 

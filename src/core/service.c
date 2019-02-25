@@ -43,6 +43,7 @@
 #include "unit.h"
 #include "utf8.h"
 #include "util.h"
+#include "missing.h"
 
 static const UnitActiveState state_translation_table[_SERVICE_STATE_MAX] = {
         [SERVICE_DEAD] = UNIT_INACTIVE,

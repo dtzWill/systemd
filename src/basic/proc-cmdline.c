@@ -15,6 +15,7 @@
 #include "string-util.h"
 #include "util.h"
 #include "virt.h"
+#include "missing.h"
 
 int proc_cmdline(char **ret) {
         const char *e;
