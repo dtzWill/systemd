@@ -1325,7 +1325,7 @@ static int trigger_device(Manager *m, sd_device *d) {
                 if (!t)
                         return -ENOMEM;
 
-                (void) write_string_file(t, "change", WRITE_STRING_FILE_DISABLE_BUFFER);
+                (void) write_string_file(t, "change", 0);
         }
 
         return 0;

@@ -123,7 +123,7 @@ int sync_cgroup(pid_t pid, CGroupUnified unified_requested, uid_t uid_shift) {
         fn = strjoina(tree, cgroup, "/cgroup.procs");
 
         sprintf(pid_string, PID_FMT, pid);
-        r = write_string_file(fn, pid_string, WRITE_STRING_FILE_DISABLE_BUFFER|WRITE_STRING_FILE_MKDIR_0755);
+        r = write_string_file(fn, pid_string, WRITE_STRING_FILE_MKDIR_0755);
         if (r < 0) {
                 log_error_errno(r, "Failed to move process: %m");
                 goto finish;

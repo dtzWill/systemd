@@ -1113,7 +1113,7 @@ static int synthesize_change_one(sd_device *dev, const char *syspath) {
 
         filename = strjoina(syspath, "/uevent");
         log_device_debug(dev, "device is closed, synthesising 'change' on %s", syspath);
-        r = write_string_file(filename, "change", WRITE_STRING_FILE_DISABLE_BUFFER);
+        r = write_string_file(filename, "change", 0);
         if (r < 0)
                 return log_device_debug_errno(dev, r, "Failed to write 'change' to %s: %m", filename);
         return 0;

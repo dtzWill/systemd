@@ -117,7 +117,7 @@ static int toggle_utf8_vc(const char *name, int fd, bool utf8) {
 static int toggle_utf8_sysfs(bool utf8) {
         int r;
 
-        r = write_string_file("/sys/module/vt/parameters/default_utf8", one_zero(utf8), WRITE_STRING_FILE_DISABLE_BUFFER);
+        r = write_string_file("/sys/module/vt/parameters/default_utf8", one_zero(utf8), 0);
         if (r < 0)
                 return log_warning_errno(r, "Failed to %s sysfs UTF-8 flag: %m", enable_disable(utf8));
 

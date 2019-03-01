@@ -54,7 +54,7 @@ static int write_hibernate_location_info(void) {
 
         /* if it's a swap partition, we just write the disk to /sys/power/resume */
         if (streq(type, "partition")) {
-                r = write_string_file("/sys/power/resume", device, WRITE_STRING_FILE_DISABLE_BUFFER);
+                r = write_string_file("/sys/power/resume", device, 0);
                 if (r < 0)
                         return log_debug_errno(r, "Failed to write partition device to /sys/power/resume: %m");
 
@@ -98,14 +98,14 @@ static int write_hibernate_location_info(void) {
 
         offset = fiemap->fm_extents[0].fe_physical / page_size();
         xsprintf(offset_str, "%" PRIu64, offset);
-        r = write_string_file("/sys/power/resume_offset", offset_str, WRITE_STRING_FILE_DISABLE_BUFFER);
+        r = write_string_file("/sys/power/resume_offset", offset_str, 0);
         if (r < 0)
                 return log_debug_errno(r, "Failed to write offset '%s': %m", offset_str);
 
         log_debug("Wrote calculated resume_offset value to /sys/power/resume_offset: %s", offset_str);
 
         xsprintf(device_str, "%lx", (unsigned long)stb.st_dev);
-        r = write_string_file("/sys/power/resume", device_str, WRITE_STRING_FILE_DISABLE_BUFFER);
+        r = write_string_file("/sys/power/resume", device_str, 0);
         if (r < 0)
                 return log_debug_errno(r, "Failed to write device '%s': %m", device_str);
 
@@ -121,7 +121,7 @@ static int write_mode(char **modes) {
         STRV_FOREACH(mode, modes) {
                 int k;
 
-                k = write_string_file("/sys/power/disk", *mode, WRITE_STRING_FILE_DISABLE_BUFFER);
+                k = write_string_file("/sys/power/disk", *mode, 0);
                 if (k >= 0)
                         return 0;
 
@@ -140,7 +140,7 @@ static int write_state(FILE **f, char **states) {
         STRV_FOREACH(state, states) {
                 int k;
 
-                k = write_string_stream(*f, *state, WRITE_STRING_FILE_DISABLE_BUFFER);
+                k = write_string_stream(*f, *state, 0);
                 if (k >= 0)
                         return 0;
                 log_debug_errno(k, "Failed to write '%s' to /sys/power/state: %m", *state);

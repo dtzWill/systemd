@@ -43,7 +43,7 @@ static int exec_list(sd_device_enumerator *e, const char *action, Set *settle_se
                 if (!filename)
                         return log_oom();
 
-                r = write_string_file(filename, action, WRITE_STRING_FILE_DISABLE_BUFFER);
+                r = write_string_file(filename, action, 0);
                 if (r < 0) {
                         log_full_errno(r == -ENOENT ? LOG_DEBUG : LOG_ERR, r,
                                        "Failed to write '%s' to '%s': %m", action, filename);

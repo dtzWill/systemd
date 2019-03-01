@@ -1849,7 +1849,7 @@ _public_ int sd_device_set_sysattr_value(sd_device *device, const char *sysattr,
         if (!value)
                 return -ENOMEM;
 
-        r = write_string_file(path, value, WRITE_STRING_FILE_DISABLE_BUFFER | WRITE_STRING_FILE_NOFOLLOW);
+        r = write_string_file(path, value, 0 | WRITE_STRING_FILE_NOFOLLOW);
         if (r < 0) {
                 if (r == -ELOOP)
                         return -EINVAL;
