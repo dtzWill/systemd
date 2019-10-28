@@ -2,6 +2,7 @@
 #pragma once
 
 #include <sys/types.h>
+#include <sys/wait.h>
 
 #include "sd-bus.h"
 #include "sd-event.h"
