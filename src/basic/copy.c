@@ -12,6 +12,7 @@
 #include <sys/xattr.h>
 #include <time.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include "alloc-util.h"
 #include "btrfs-util.h"
