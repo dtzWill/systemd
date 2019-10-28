@@ -15,6 +15,7 @@
 #include "util.h"
 #include "verbs.h"
 #include "virt.h"
+#include "missing.h"
 
 static char **arg_path = NULL;
 
