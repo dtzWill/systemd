@@ -6,6 +6,8 @@
 #include "macro.h"
 #include "missing_syscall.h"
 
+typedef unsigned long __cpu_mask;
+
 /* This wraps the libc interface with a variable to keep the allocated size. */
 typedef struct CPUSet {
         cpu_set_t *set;
