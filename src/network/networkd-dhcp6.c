@@ -3,9 +3,9 @@
   Copyright © 2014 Intel Corporation. All rights reserved.
 ***/
 
+#include <netinet/if_ether.h>
 #include <netinet/in.h>
 #include <linux/if.h>
-#include <linux/if_arp.h>
 #include "sd-radv.h"
 
 #include "sd-dhcp6-client.h"

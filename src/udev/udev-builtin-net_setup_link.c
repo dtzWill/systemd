@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: LGPL-2.1+ */
 
+#include <netinet/if_ether.h>
 #include "device-util.h"
 #include "alloc-util.h"
 #include "link-config.h"

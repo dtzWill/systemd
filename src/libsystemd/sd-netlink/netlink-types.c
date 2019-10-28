@@ -3,6 +3,7 @@
 #include <netinet/in.h>
 #include <stdint.h>
 #include <sys/socket.h>
+#include <netinet/if_ether.h>
 #include <linux/can/vxcan.h>
 #include <linux/netlink.h>
 #include <linux/rtnetlink.h>

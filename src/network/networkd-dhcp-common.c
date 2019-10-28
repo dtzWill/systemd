@@ -1,6 +1,7 @@
 /* SPDX-License-Identifier: LGPL-2.1+ */
 
 #include "networkd-dhcp-common.h"
+#include <netinet/if_ether.h>
 #include "networkd-network.h"
 #include "parse-util.h"
 #include "string-table.h"

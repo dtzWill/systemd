@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/mount.h>
 #include <sys/wait.h>
+#include <netinet/if_ether.h>
 
 /* When we include libgen.h because we need dirname() we immediately
  * undefine basename() since libgen.h defines it as a macro to the POSIX
