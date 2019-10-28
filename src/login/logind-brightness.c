@@ -1,5 +1,6 @@
 /* SPDX-License-Identifier: LGPL-2.1+ */
 
+#include <sys/wait.h>
 #include "bus-util.h"
 #include "device-util.h"
 #include "hash-funcs.h"
